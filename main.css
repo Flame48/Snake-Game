@@ -7,7 +7,8 @@ body {
     background-color: rgb(34, 35, 36);
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(238, 36, 69);
-    overflow-x: hidden;
+    overflow: hidden;
+    position: fixed;
 }
 
 h1 {

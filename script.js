@@ -64,7 +64,7 @@ function main() {
         move_snake();
         drawSnake();
         main();
-    },100);
+    },140);
 }
 
 function UDied() {
