@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(34, 35, 36);
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(238, 36, 69);
+    overflow-x: hidden;
+}
+
+h1 {
+    margin: 70px 0 40px 0;
+    text-align: center;
+    font-size: 80px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 25px;
+}
+
+span {
+    padding: 0 0 0 calc(50vw - 200px);
+    font-size: 20px;
+}
+
+#SnakeGameBoard {
+    display: initial;
+    margin: 0 calc(50vw - 200px);
+    height: 400px;
+    width: 400px;
+    border-radius: 20px;
+    border: 20px solid hsl(350, 50%, 5%);
+}
