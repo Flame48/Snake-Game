@@ -38,6 +38,8 @@ var dy=0;
 var score = 0;
 var high_score = 0;
 function move_snake() {
+    dx = ndx;
+    dy = ndy;
     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
     const has_eaten_food = snake[0].x === foodx && snake[0].y === foody;
@@ -87,6 +89,9 @@ function UpdateHighScore() {
     }
 }
 
+var ndx = 10;
+var ndy = 0;
+
 document.addEventListener("keydown", change_direction)
 function change_direction(event) {
     const LeftKey=37;
@@ -94,29 +99,33 @@ function change_direction(event) {
     const UpKey=38;
     const DownKey=40;
 
+    const A=65;
+    const D=68;
+    const W=87;
+    const S=83;
+
     const KeyPressed = event.keyCode;
     const goUp = dy === -10;
     const goDown = dy === 10;
     const goRight = dx === 10;  
     const goLeft = dx === -10;
 
-   if(KeyPressed ===LeftKey && !goRight) {
-        dx = -10;
-        dy = 0;
+   if((KeyPressed ===LeftKey||KeyPressed ===A) && !goRight) {
+        ndx = -10;
+        ndy = 0;
     }
-   if(KeyPressed ===UpKey && !goDown) {
-        dx = 0;
-        dy = -10;
+   if((KeyPressed ===UpKey||KeyPressed ===W) && !goDown) {
+        ndx = 0;
+        ndy = -10;
     }
-    if(KeyPressed ===RightKey && !goLeft) {
-        dx = 10;
-        dy = 0;
+    if((KeyPressed ===RightKey||KeyPressed ===D) && !goLeft) {
+        ndx = 10;
+        ndy = 0;
     }
-    if(KeyPressed ===DownKey && !goUp) {
-        dx = 0;
-        dy = 10;
+    if((KeyPressed ===DownKey||KeyPressed ===S) && !goUp) {
+        ndx = 0;
+        ndy = 10;
     }
-
 }
 
 function hasGameEnded() {
