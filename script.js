@@ -38,8 +38,8 @@ var dy=0;
 var score = 0;
 var high_score = 0;
 function move_snake() {
-    dx = ndx;
-    dy = ndy;
+    dx = ndx.shift();
+    dy = ndy.shift();
     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
     const has_eaten_food = snake[0].x === foodx && snake[0].y === foody;
@@ -89,8 +89,8 @@ function UpdateHighScore() {
     }
 }
 
-var ndx = 10;
-var ndy = 0;
+var ndx = [10];
+var ndy = [0];
 
 document.addEventListener("keydown", change_direction)
 function change_direction(event) {
@@ -111,20 +111,20 @@ function change_direction(event) {
     const goLeft = dx === -10;
 
    if((KeyPressed ===LeftKey||KeyPressed ===A) && !goRight) {
-        ndx = -10;
-        ndy = 0;
+        ndx.push(-10);
+        ndy.push(0);
     }
    if((KeyPressed ===UpKey||KeyPressed ===W) && !goDown) {
-        ndx = 0;
-        ndy = -10;
+        ndx.push(0);
+        ndy.push(-10);
     }
     if((KeyPressed ===RightKey||KeyPressed ===D) && !goLeft) {
-        ndx = 10;
-        ndy = 0;
+        ndx.push(10);
+        ndy.push(0);
     }
     if((KeyPressed ===DownKey||KeyPressed ===S) && !goUp) {
-        ndx = 0;
-        ndy = 10;
+        ndx.push(0);
+        ndy.push(10);
     }
 }
 
