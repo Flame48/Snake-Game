@@ -5,12 +5,12 @@ const snake_border = 'rgb(238, 36, 69)';
 const food_background = 'rgb(235, 196, 26)';
 const food_border = 'black';
 
-let snake = [
-  {x: 100, y: 100},
-]
 
 const board = document.getElementById("SnakeGameBoard");
 const board_ctx = board.getContext("2d");
+let snake = [
+  {x: Math.floor(board.width/2), y: Math.floor(board.height/2)},
+]
 
 function clearCanvas() {
   board_ctx.fillStyle = board_background;
@@ -38,8 +38,8 @@ var dy=0;
 var score = 0;
 var high_score = 0;
 function move_snake() {
-    dx = ndx;
-    dy = ndy;
+    dx = (ndx.length===0) ? dx : ndx.shift();
+    dy = (ndy.length===0) ? dy : ndy.shift(); 
     const head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
     const has_eaten_food = snake[0].x === foodx && snake[0].y === foody;
@@ -66,11 +66,11 @@ function main() {
         move_snake();
         drawSnake();
         main();
-    },140);
+    },60);
 }
 
 function UDied() {
-    snake = [{x: 100, y: 100}];
+    snake = [{x: Math.floor(board.width/2), y: Math.floor(board.height/2)}];
     score = 0;
     document.getElementById("Score").innerHTML = "Score: ";
     genFood();
@@ -89,8 +89,8 @@ function UpdateHighScore() {
     }
 }
 
-var ndx = 10;
-var ndy = 0;
+var ndx = [10];
+var ndy = [0];
 
 document.addEventListener("keydown", change_direction)
 function change_direction(event) {
@@ -104,27 +104,41 @@ function change_direction(event) {
     const W=87;
     const S=83;
 
-    const KeyPressed = event.keyCode;
-    const goUp = dy === -10;
-    const goDown = dy === 10;
-    const goRight = dx === 10;  
-    const goLeft = dx === -10;
+    let goUp;
+    let goDown;
+    let goRight;
+    let goLeft;
 
-   if((KeyPressed ===LeftKey||KeyPressed ===A) && !goRight) {
-        ndx = -10;
-        ndy = 0;
+    const KeyPressed = event.keyCode;
+    if(ndx.length===0 || ndy.length===0) {
+        goUp = dy === -10;
+        goDown = dy === 10;
+        goRight = dx === 10;
+        goLeft = dx === -10;
+    } else {
+        let topY = ndy[ndy.length-1];
+        let topX = ndx[ndx.length-1];
+        goUp = topY === -10;
+        goDown = topY === 10;
+        goRight = topX === 10;
+        goLeft = topX === -10;
     }
-   if((KeyPressed ===UpKey||KeyPressed ===W) && !goDown) {
-        ndx = 0;
-        ndy = -10;
+
+   if((KeyPressed === LeftKey||KeyPressed === A) && !goRight) {
+        ndx.push(-10);
+        ndy.push(0);
     }
-    if((KeyPressed ===RightKey||KeyPressed ===D) && !goLeft) {
-        ndx = 10;
-        ndy = 0;
+   if((KeyPressed === UpKey||KeyPressed === W) && !goDown) {
+        ndx.push(0);
+        ndy.push(-10);
     }
-    if((KeyPressed ===DownKey||KeyPressed ===S) && !goUp) {
-        ndx = 0;
-        ndy = 10;
+    if((KeyPressed === RightKey||KeyPressed === D) && !goLeft) {
+        ndx.push(10);
+        ndy.push(0);
+    }
+    if((KeyPressed === DownKey||KeyPressed === S) && !goUp) {
+        ndx.push(0);
+        ndy.push(10);
     }
 }
 
